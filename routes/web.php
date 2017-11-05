@@ -15,13 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/07/{rev}', function ($rev) {
-    $s3 = Storage::cloud();
-    $filename = sprintf('%s/gamepack.jar', $rev);
+Route::get('/07/{rev}', function (App\Gamepacks $gamepacks, $rev) {
+    $pack = $gamepacks->find($rev);
 
-    abort_unless(collect($s3->allFiles())->contains($filename), 404, 'Not found');
+    abort_unless($pack, 404);
 
-    return redirect($s3->url($filename));
+    return redirect($gamepacks->url($rev));
 })->name('pack');
 
 Route::get('/rl/{rev}', function (App\Deobs $deobs, $rev) {

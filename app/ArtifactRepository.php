@@ -21,6 +21,8 @@ abstract class ArtifactRepository
 
     abstract function formatFile($rev);
 
+    abstract function routeKey();
+
     function all()
     {
         return cache()->remember($this->getCacheKey(), 10, function () {
@@ -29,7 +31,8 @@ abstract class ArtifactRepository
                     return $this->isArtifact($name);
                 })->map(function ($name) {
                     $rev = $this->extractRevision($name);
-                    return compact('rev', 'name');
+                    $url = route($this->routeKey(), compact('rev'));
+                    return compact('rev', 'name', 'url');
                 })->values();
         });
     }

@@ -12,6 +12,11 @@ class Deobs extends ArtifactRepository
         parent::__construct(Storage::disk('deobs'));
     }
 
+    function routeKey()
+    {
+        return 'runelite';
+    }
+
     function getCacheKey()
     {
         return 'deobs';

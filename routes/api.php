@@ -7,6 +7,13 @@ Route::get('/packs', function (App\Gamepacks $gamepacks) {
     }));
 });
 
+Route::get('/artifacts/{rev}', function ($rev, App\Gamepacks $gamepacks, App\Deobs $deobs) {
+    $deob = $deobs->find($rev);
+    $pack = $gamepacks->find($rev);
+
+    return response()->json(compact('pack', 'deob'));
+});
+
 Route::get('/packs/{rev}', function (App\Gamepacks $gamepacks, $rev) {
     $pack = $gamepacks->find($rev);
     abort_unless($pack, 404);

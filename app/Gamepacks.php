@@ -12,6 +12,11 @@ class Gamepacks extends ArtifactRepository
         parent::__construct(Storage::cloud());
     }
 
+    function routeKey()
+    {
+        return 'pack';
+    }
+
     function getCacheKey()
     {
         return 'gamepacks';

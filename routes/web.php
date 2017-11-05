@@ -21,5 +21,5 @@ Route::get('/07/{rev}', function ($rev) {
 
     abort_unless($s3->exists($filename), 404, 'Not found');
 
-    return redirect($s3->url(sprintf('%s/gamepack.jar', $rev)));
+    return redirect($s3->url($filename));
 });

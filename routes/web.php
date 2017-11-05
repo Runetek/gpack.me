@@ -31,4 +31,4 @@ Route::get('/rl/{rev}', function ($rev) {
     abort_unless(collect($s3->allFiles())->contains($filename), 404, 'Not found');
 
     return redirect($s3->url($filename));
-});
+})->name('runelite');

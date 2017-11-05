@@ -12,8 +12,8 @@ Route::get('/artifacts', function (App\Gamepacks $gamepacks, App\Deobs $deobs) {
         ->map(function ($rev) use ($gamepacks, $deobs) {
             $pack = $gamepacks->find($rev);
             $deob = $deobs->find($rev);
-            return compact('pack', 'deob');
-        })->keyBy('pack.rev');
+            return compact('rev', 'pack', 'deob');
+        })->values();
 });
 
 Route::get('/artifacts/{rev}', function ($rev, App\Gamepacks $gamepacks, App\Deobs $deobs) {

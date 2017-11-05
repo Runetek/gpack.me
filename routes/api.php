@@ -24,8 +24,9 @@ Route::get('/deobs', function () {
         ->filter(function ($name) {
             return starts_with($name, 'runelite/');
         })->map(function ($name) {
-            $rev = collect(explode('/', $name))->last();
-            return route('runelite', compact('rev'));
-        });
+            $rev = explode('.', collect(explode('/', $name))->last())[0];
+            $url = route('runelite', compact('rev'));
+            return compact('rev', 'url');
+        })->values();
     return response()->json($deobs);
 });

@@ -24,11 +24,10 @@ Route::get('/07/{rev}', function ($rev) {
     return redirect($s3->url($filename));
 })->name('pack');
 
-Route::get('/rl/{rev}', function ($rev) {
-    $s3 = Storage::disk('deobs');
-    $filename = sprintf('runelite/%s.jar', $rev);
+Route::get('/rl/{rev}', function (App\Deobs $deobs, $rev) {
+    $deob = $deobs->find($rev);
 
-    abort_unless(collect($s3->allFiles())->contains($filename), 404, 'Not found');
+    abort_unless($deob, 404);
 
     return redirect($s3->url($filename));
 })->name('runelite');

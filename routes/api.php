@@ -1,29 +1,27 @@
 <?php
 
-Route::get('/packs', function () {
-    $s3 = Storage::cloud();
-
-    $packs = collect($s3->allFiles())
-        ->filter(function ($name) {
-            return ends_with($name, '/gamepack.jar');
-        })->map(function ($name) {
-            $rev = (int) collect(explode('/', $name))->first();
-            $url = route('pack', compact('rev'));
-            return compact('rev', 'url');
-        })->values();
-    return response()->json($packs);
+Route::get('/packs', function (App\Gamepacks $gamepacks) {
+    return response()->json($gamepacks->all()->map(function ($pack) {
+        $rev = $pack['rev'];
+        return ['rev' => $rev, 'url' => route('pack', compact('rev'))];
+    }));
 });
 
-Route::get('/deobs', function () {
-    $s3 = Storage::disk('deobs');
+Route::get('/packs/{rev}', function (App\Gamepacks $gamepacks, $rev) {
+    $pack = $gamepacks->find($rev);
+    abort_unless($pack, 404);
+    return response()->json($pack);
+});
 
-    $deobs = collect($s3->allFiles())
-        ->filter(function ($name) {
-            return starts_with($name, 'runelite/');
-        })->map(function ($name) {
-            $rev = (int) explode('.', collect(explode('/', $name))->last())[0];
-            $url = route('runelite', compact('rev'));
-            return compact('rev', 'url');
-        })->values();
-    return response()->json($deobs);
+Route::get('/deobs', function (App\Deobs $deobs) {
+    return response()->json($deobs->all()->map(function ($deob) {
+        $rev = $deob['rev'];
+        return ['rev' => $rev, 'url' => route('runelite', compact('rev'))];
+    }));
+});
+
+Route::get('/deobs/{rev}', function (App\Deobs $deobs, $rev) {
+    $pack = $deobs->find($rev);
+    abort_unless($pack, 404);
+    return response()->json($pack);
 });

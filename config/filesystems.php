@@ -73,6 +73,16 @@ return [
             'use_path_style_endpoint' => true,
         ],
 
+        'deobs' => [
+            'driver' => 's3',
+            'key' => env('MINIO_KEY'),
+            'secret' => env('MINIO_SECRET'),
+            'region' => env('MINIO_REGION'),
+            'bucket' => 'deobs',
+            'endpoint' => env('MINIO_HOST'),
+            'use_path_style_endpoint' => true,
+        ],
+
     ],
 
 ];

@@ -31,7 +31,7 @@ abstract class ArtifactRepository
                     return $this->isArtifact($name);
                 })->map(function ($name) {
                     $rev = $this->extractRevision($name);
-                    $url = route($this->routeKey(), compact('rev'));
+                    $url = $this->url($rev);
                     return compact('rev', 'name', 'url');
                 })->values();
         });

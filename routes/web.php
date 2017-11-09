@@ -28,5 +28,5 @@ Route::get('/rl/{rev}', function (App\Deobs $deobs, $rev) {
 
     abort_unless($deob, 404);
 
-    return redirect($s3->url($filename));
+    return redirect($deobs->url($rev));
 })->name('runelite');

@@ -1,9 +1,9 @@
 <?php
 
 Route::get('/packs', function (App\Gamepacks $gamepacks) {
-    return response()->json($gamepacks->all()->map(function ($pack) {
+    return response()->json($gamepacks->all()->map(function ($pack) use ($gamepacks) {
         $rev = $pack['rev'];
-        return ['rev' => $rev, 'url' => route('pack', compact('rev'))];
+        return ['rev' => $rev, 'url' => $gamepacks->url($rev)];
     }));
 });
 
@@ -30,9 +30,9 @@ Route::get('/packs/{rev}', function (App\Gamepacks $gamepacks, $rev) {
 });
 
 Route::get('/deobs', function (App\Deobs $deobs) {
-    return response()->json($deobs->all()->map(function ($deob) {
+    return response()->json($deobs->all()->map(function ($deob) use ($deobs) {
         $rev = $deob['rev'];
-        return ['rev' => $rev, 'url' => route('runelite', compact('rev'))];
+        return ['rev' => $rev, 'url' => $deobs->url($rev)];
     }));
 });
 

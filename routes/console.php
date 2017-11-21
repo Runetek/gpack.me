@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Artisan;
+use App\Reports\ReportFetcher;
+use App\ReportType;
+use App\Report;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +20,25 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('fetch-reports', function (ReportFetcher $reports) {
+    $items = $reports->all();
+
+    $existingReportTypes = ReportType::all()->pluck('fqcn');
+
+    $reports->availableReportTypes()
+        ->diff($existingReportTypes->values())
+        ->each(function ($fqcn) {
+            ReportType::create(compact('fqcn'));
+        });
+
+    $reportTypes = ReportType::all()->pluck('id', 'fqcn');
+    $reportTypes->dump();
+
+    $items->each(function ($report) use ($reportTypes) {
+        Report::create([
+            'report_type_id' => $reportTypes[$report['fqcn']],
+            'revision' => $report['revision'],
+        ]);
+    });
+});

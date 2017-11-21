@@ -13,7 +13,10 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['*'],
+    'allowedOrigins' => [
+        'reports.runetek.io',
+        'localhost:9797',
+    ],
     'allowedHeaders' => ['Content-Type'],
     'allowedMethods' => ['GET'],
     'exposedHeaders' => [],

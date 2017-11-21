@@ -52,7 +52,7 @@ class ReportFetcher
 
         $revision = (int) $path->first();
         $fqcn = collect(explode('.', $path->last()))
-            ->slice(-1)
+            ->slice(0, -1)
             ->implode('.');
         $url = $this->s3->url($file);
         return compact('revision', 'url', 'fqcn');

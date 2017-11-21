@@ -69,5 +69,17 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+
+        if ($this->app->environment() === 'production') {
+            Route::domain('api.gpack.me')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/api_v2.php'));
+        } else {
+            Route::prefix('api/v2')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/api_v2.php'));
+        }
     }
 }

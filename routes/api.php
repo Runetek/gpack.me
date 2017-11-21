@@ -6,6 +6,12 @@ Route::get('reports', function (ReportFetcher $reports) {
     return $reports->all();
 });
 
+Route::get('reports/{revision}', function ($revision, ReportFetcher $reports) {
+    return $reports->all()
+        ->where('revision', '=', $revision)
+        ->values();
+});
+
 Route::get('search_index', function (ReportFetcher $reports) {
     return [
         'revisions' => $reports->availableRevisions(),

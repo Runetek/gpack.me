@@ -1,10 +1,17 @@
 <?php
 
 use App\Reports\ReportFetcher;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 Route::get('reports', function (ReportFetcher $reports) {
-    return $reports->all();
-});
+    $items = $reports->all();
+    $total = $items->count();
+    $page = (int) request('page', 1);
+    $subset = $items->slice(($page - 1) * 25, 25)->values();
+    $paginator = new LengthAwarePaginator($subset, $total, 25, $page);
+    $paginator->setPath(route('reports'));
+    return $paginator;
+})->name('reports');
 
 Route::get('reports/{revision}', function ($revision, ReportFetcher $reports) {
     return $reports->all()

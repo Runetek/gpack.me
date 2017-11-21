@@ -1,5 +1,31 @@
 <?php
 
+use App\Reports\ReportFetcher;
+
+Route::get('reports', function (App\Reports\ReportFetcher $reports) {
+    return $reports->all();
+});
+
+Route::get('search_index', function (ReportFetcher $reports) {
+    return [
+        'revisions' => $reports->availableRevisions(),
+        'reportTypes' => $reports->availableReportTypes(),
+    ];
+});
+
+Route::get('report_types', function (App\Reports\ReportFetcher $reports) {
+    return $reports->all()
+        ->pluck('fqcn')
+        ->unique()
+        ->values();
+});
+
+Route::get('reports/{}', function (App\Reports\ReportFetcher $reports) {
+    return cache()->remember('reports', 1, function () use ($reports) {
+        return $reports->list();
+    });
+});
+
 Route::get('/packs', function (App\Gamepacks $gamepacks) {
     return response()->json($gamepacks->all()->map(function ($pack) use ($gamepacks) {
         $rev = $pack['rev'];

@@ -14,10 +14,12 @@ Route::group(['prefix' => 'v2'], function () {
         );
     })->name('reports');
 
-    Route::get('reports/{revision}', function ($revision, ReportFetcher $reports) {
-        return $reports->all()
-            ->where('revision', '=', $revision)
-            ->values();
+    Route::get('reports/{revision}', function ($revision) {
+        return ReportResource::collection(
+            Report::with('reportType')
+                ->where('revision', '=', $revision)
+                ->paginate(25)
+        );
     });
 
     Route::get('search_index', function (ReportFetcher $reports) {

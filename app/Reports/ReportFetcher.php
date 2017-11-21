@@ -50,11 +50,12 @@ class ReportFetcher
         $path = collect(explode('/', $file));
         \abort_if($path->count() !== 2, 400);
 
-        $dots = collect(explode('.', $path->last()));
         $revision = (int) $path->first();
-        $ext = $dots->pop();
-        $fqcn = $dots->implode('.');
-        return compact('revision', 'ext', 'fqcn', 'file');
+        $fqcn = collect(explode('.', $path->last()))
+            ->slice(-1)
+            ->implode('.');
+        $url = $this->s3->url($file);
+        return compact('revision', 'url', 'fqcn');
     }
 
     private function path($rev, $report)

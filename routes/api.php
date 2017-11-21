@@ -5,7 +5,7 @@ use App\Http\Resources\Report as ReportResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Report;
 
-Route::group(['prefix' => 'v2'], function () {
+Route::group(['domain' => 'api.gpack.me'], function () {
     Route::get('reports', function () {
         return ReportResource::collection(
             Report::with('reportType')

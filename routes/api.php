@@ -13,13 +13,6 @@ Route::get('search_index', function (ReportFetcher $reports) {
     ];
 });
 
-Route::get('report_types', function (ReportFetcher $reports) {
-    return $reports->all()
-        ->pluck('fqcn')
-        ->unique()
-        ->values();
-});
-
 Route::get('/packs', function (App\Gamepacks $gamepacks) {
     return response()->json($gamepacks->all()->map(function ($pack) use ($gamepacks) {
         $rev = $pack['rev'];

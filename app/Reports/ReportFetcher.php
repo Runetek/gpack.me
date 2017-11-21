@@ -26,6 +26,8 @@ class ReportFetcher
         return $this->all()
             ->pluck('revision')
             ->unique()
+            ->sort()
+            ->reverse()
             ->values();
     }
 
@@ -34,6 +36,7 @@ class ReportFetcher
         return $this->all()
             ->pluck('fqcn')
             ->unique()
+            ->sort()
             ->values();
     }
 

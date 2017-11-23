@@ -8,8 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'gpack.me') }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
     <style>
         html, body {
             background-color: #fff;
@@ -65,13 +66,13 @@
 </head>
 <body>
     <div id="app">
-        <div class="container">
+        <div class="contfainer">
             @yield('content')
         </div>
     </div>
 
-    {{--  <script src="{{ mix('js/manifest.js') }}"></script>  --}}
-    {{--  <script src="{{ mix('js/vendor.js') }}"></script>  --}}
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ return [
     'allowedOrigins' => [
         'reports.runetek.io',
         'localhost:9797',
+        'gpack.me',
     ],
     'allowedHeaders' => ['Content-Type'],
     'allowedMethods' => ['GET'],

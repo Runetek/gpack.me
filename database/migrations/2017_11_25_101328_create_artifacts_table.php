@@ -14,7 +14,7 @@ class CreateArtifactsTable extends Migration
     public function up()
     {
         Schema::create('artifacts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->integer('release_id')->unsigned()->index();
             $table->timestamps();
         });

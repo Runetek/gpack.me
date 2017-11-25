@@ -39,7 +39,7 @@ Route::get('/rl/{rev}', function (App\Deobs $deobs, $rev) {
 
 Route::group(['subdomain' => 'get.gpack.me'], function () {
     Route::get('{revision}.jar', function (Release $revision) {
-        $revision->load('artifacts');
-        return $revision; //->artifacts->first()->getMedia();
+        $revision->load('artifacts.media');
+        return $revision->artifacts->first()->media->first();
     });
 });

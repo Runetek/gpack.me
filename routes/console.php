@@ -40,7 +40,7 @@ Artisan::command('import:gamepacks', function () {
                 ]);
                 $artifact->save();
 
-                $this->info($remote_file);
+                $this->info($remote_file.' '.$release->revision);
 
                 Storage::put('tmp.jar', Storage::cloud()->get($remote_file));
 

@@ -1,21 +1,16 @@
 <?php
 
 use App\Reports\ReportFetcher;
+use App\Http\Resources\Artifact as ArtifactResource;
 use App\Http\Resources\Report as ReportResource;
-use App\Http\Resources\Pack as PackResource;
+use App\Artifact;
 use App\Report;
-use App\Gamepacks;
-use Illuminate\Pagination\LengthAwarePaginator;
 
-Route::get('packs', function (Gamepacks $gamepacks) {
-    $page = request('page', 1);
-    $limit = 25;
-    $packs = $gamepacks->all()->sortByDesc('rev');
-    $items = $packs->forPage($page, $limit)->values();
-    $paginated = new LengthAwarePaginator($items, count($packs), $limit, $page);
-    $paginated->setPath(request()->url());
-
-    return PackResource::collection($paginated);
+Route::get('packs', function () {
+    return ArtifactResource::collection(
+        Artifact::with('media')
+            ->paginate(25)
+    );
 })->name('api.v2.packs');
 
 Route::get('reports', function () {

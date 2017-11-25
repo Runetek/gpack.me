@@ -14,9 +14,13 @@ class Artifact extends Resource
      */
     public function toArray($request)
     {
+        $media = $this->media->first();
+
         return [
             'id' => $this->id,
-            'media' => $this->media->first(),
+            'size' => $media->size,
+            'url' => $media->getFullUrl(),
+            'checksums' => $media->getCustomProperty('checksums'),
         ];
     }
 }

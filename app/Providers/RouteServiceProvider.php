@@ -23,7 +23,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::model('revision', function ($revision) {
+            return App\Release::where('revision', '=', $revision)->first() ?? abort(404);
+        });
 
         parent::boot();
     }

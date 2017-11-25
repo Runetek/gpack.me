@@ -38,7 +38,7 @@ Route::get('/rl/{rev}', function (App\Deobs $deobs, $rev) {
 })->name('runelite');
 
 Route::group(['subdomain' => 'get.gpack.me'], function () {
-    Route::get('{release}', function (Release $release) {
-        return $release->artifacts->first()->getMedia();
+    Route::get('{revision}.jar', function (Release $revision) {
+        return $revision->artifacts->first()->getMedia();
     });
 });

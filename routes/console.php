@@ -27,7 +27,7 @@ Artisan::command('inspire', function () {
 
 Artisan::command('import:gamepacks', function () {
     Release::all()->each(function ($release) {
-        DB::transaction(function () {
+        DB::transaction(function () use ($release) {
             $artifact = new Artifact([
                 'release_id' => $release->id,
             ]);

@@ -1,5 +1,7 @@
 <?php
 
+use App\Release;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +12,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['subdomain' => 'get.gpack.me'], function () {
+    Route::get('{release}', function (Release $release) {
+        return $release->artifacts->first()->getMedia();
+    });
+});
 
 Route::get('/', function () {
     return view('welcome');

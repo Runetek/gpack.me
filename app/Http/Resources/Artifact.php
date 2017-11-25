@@ -18,9 +18,12 @@ class Artifact extends Resource
 
         return [
             'id' => $this->id,
-            'size' => $media->size,
+            'revision' => $this->release->revision,
             'url' => $media->getFullUrl(),
-            'checksums' => $media->getCustomProperty('checksums'),
+            'meta' => [
+                'size' => $media->size,
+                'checksums' => $media->getCustomProperty('checksums'),
+            ],
         ];
     }
 }

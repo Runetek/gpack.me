@@ -37,8 +37,16 @@ Artisan::command('import:gamepacks', function () {
 
                 $this->info($remote_file);
 
+                Storage::put('tmp.jar', Storage::cloud()->get($remote_file));
+
                 $artifact->addMediaFromUrl(Storage::cloud()->url($remote_file))
                         ->usingFileName('gamepack.jar')
+                        ->withCustomProperties([
+                            'checksums' => [
+                                'md5' => md5_file(storage_path('app/tmp.jar')),
+                                'sha1' => sha1_file(storage_path('app/tmp.jar')),
+                            ],
+                        ])
                         ->toMediaCollection('gamepacks', 'artifacts');
             });
         } catch (Exception $e) {

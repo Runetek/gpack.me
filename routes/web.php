@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('packs', function () {
+    return view('packs.index');
+});
+
 Route::get('/07/{rev}', function (App\Gamepacks $gamepacks, $rev) {
     $pack = $gamepacks->find($rev);
 

@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Artisan;
 use App\Reports\ReportFetcher;
 use App\ReportType;
 use App\Report;
+use App\Release;
+use App\Artifact;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +24,24 @@ use App\Report;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('import:gamepacks', function () {
+    Release::all()->each(function ($release) {
+        DB::transaction(function () {
+            $artifact = new Artifact([
+                'release_id' => $release->id,
+            ]);
+            $artifact->save();
+            $remote_file = $release->revision . '/gamepack.jar';
+
+            $this->info($remote_file);
+
+            $artifact->addMediaFromUrl(Storage::cloud()->url($remote_file))
+                    ->usingFileName('gamepack.jar')
+                    ->toMediaCollection('gamepacks', 'artifacts');
+        });
+    });
+});
 
 Artisan::command('fetch-reports', function (ReportFetcher $reports) {
     $items = $reports->all();

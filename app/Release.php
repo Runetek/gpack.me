@@ -12,4 +12,9 @@ class Release extends Model
     {
         return $this->hasMany(Artifact::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'revision';
+    }
 }

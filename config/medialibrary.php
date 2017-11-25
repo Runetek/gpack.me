@@ -46,7 +46,7 @@ return [
         /*
          * The domain that should be prepended when generating urls.
          */
-        'domain' => env('MINIO_HOST'),
+        'domain' => env('MINIO_HOST').'/artifacts',
     ],
 
     'remote' => [

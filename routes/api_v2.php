@@ -16,7 +16,7 @@ Route::get('packs', function (Gamepacks $gamepacks) {
     $paginated->setPath(request()->url());
 
     return PackResource::collection($paginated);
-});
+})->name('api.v2.packs');
 
 Route::get('reports', function () {
     return ReportResource::collection(

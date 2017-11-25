@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <artifact-table></artifact-table>
+  <artifact-table
+    api-url="{{ route('api.v2.packs') }}"
+  ></artifact-table>
 @endsection

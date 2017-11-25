@@ -1,7 +1,15 @@
 <template>
   <vuetable ref="vuetable"
-    api-url="/api/v2/packs"
+    :api-url="apiUrl"
     :fields="['revision', 'url']"
     pagination-path="meta"
   />
 </template>
+
+<script>
+export default {
+  props: {
+    apiUrl: String
+  }
+}
+</script>

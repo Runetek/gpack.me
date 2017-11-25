@@ -27,19 +27,23 @@ Artisan::command('inspire', function () {
 
 Artisan::command('import:gamepacks', function () {
     Release::all()->each(function ($release) {
-        DB::transaction(function () use ($release) {
-            $artifact = new Artifact([
-                'release_id' => $release->id,
-            ]);
-            $artifact->save();
-            $remote_file = $release->revision . '/gamepack.jar';
+        try {
+            DB::transaction(function () use ($release) {
+                $artifact = new Artifact([
+                    'release_id' => $release->id,
+                ]);
+                $artifact->save();
+                $remote_file = $release->revision . '/gamepack.jar';
 
-            $this->info($remote_file);
+                $this->info($remote_file);
 
-            $artifact->addMediaFromUrl(Storage::cloud()->url($remote_file))
-                    ->usingFileName('gamepack.jar')
-                    ->toMediaCollection('gamepacks', 'artifacts');
-        });
+                $artifact->addMediaFromUrl(Storage::cloud()->url($remote_file))
+                        ->usingFileName('gamepack.jar')
+                        ->toMediaCollection('gamepacks', 'artifacts');
+            });
+        } catch (Exception $e) {
+            $this->error('Error: '.$e->getMessage());
+        }
     });
 });
 

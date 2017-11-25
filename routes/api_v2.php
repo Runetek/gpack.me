@@ -9,8 +9,8 @@ use App\Report;
 Route::get('packs', function () {
     return ArtifactResource::collection(
         Artifact::with('media', 'release')
-            ->paginate(25)
             ->latest()
+            ->paginate(25)
     );
 })->name('api.v2.packs');
 

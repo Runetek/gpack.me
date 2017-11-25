@@ -13,12 +13,6 @@ use App\Release;
 |
 */
 
-Route::group(['subdomain' => 'get.gpack.me'], function () {
-    Route::get('{release}', function (Release $release) {
-        return $release->artifacts->first()->getMedia();
-    });
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -42,3 +36,9 @@ Route::get('/rl/{rev}', function (App\Deobs $deobs, $rev) {
 
     return redirect($deobs->url($rev));
 })->name('runelite');
+
+Route::group(['subdomain' => 'get.gpack.me'], function () {
+    Route::get('{release}', function (Release $release) {
+        return $release->artifacts->first()->getMedia();
+    });
+});

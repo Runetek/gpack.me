@@ -19,7 +19,7 @@ class Release extends Resource
         return [
             'revision' => (int) $this->revision,
             'gamepack' => JavaArtifact::make($this->gamepack),
-            'built_at' => $this->when($this->built_at, function () {
+            'builtAt' => $this->when($this->built_at, function () {
                 return [
                     'datetime' => $this->built_at->toIso8601String(),
                     'timestamp' => $this->built_at->getTimestamp(),

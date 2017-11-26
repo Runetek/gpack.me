@@ -2,9 +2,7 @@ import Vue from 'vue'
 import { VueTyper } from 'vue-typer'
 import VueTable from 'vuetable-2'
 
-require('./bootstrap')
-
-window.Vue = require('vue')
+// require('./bootstrap')
 
 Vue.use(VueTable)
 

@@ -1,15 +1,28 @@
 <template>
-  <vuetable ref="vuetable"
-    :api-url="apiUrl"
-    :fields="fields"
-    pagination-path="meta"
-  />
+  <div>
+    <vuetable ref="vuetable"
+      :api-url="apiUrl"
+      :fields="fields"
+      pagination-path="meta"
+      @vuetable:pagination-data="onPaginationData"
+    />
+    <vuetable-pagination ref="pagination"
+      @vuetable-pagination:change-page="onChangePage"
+    />
+  </div>
 </template>
 
 <script>
+import Vuetable from 'vuetable-2/src/components/Vuetable'
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+
 export default {
   props: {
     apiUrl: String
+  },
+  components: {
+    Vuetable,
+    VuetablePagination
   },
   data () {
     return {
@@ -36,6 +49,12 @@ export default {
   methods: {
     formatSizeKb (size) {
       return (size / 1024).toFixed(2)
+    },
+    onPaginationData (paginationData) {
+      this.$refs.pagination.setPaginationData(paginationData)
+    },
+    onChangePage (page) {
+      this.$refs.vuetable.changePage(page)
     }
   }
 }

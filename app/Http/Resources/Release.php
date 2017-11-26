@@ -19,13 +19,6 @@ class Release extends Resource
         return [
             'revision' => (int) $this->revision,
             'gamepack' => JavaArtifact::make($this->gamepack),
-            'builtAt' => $this->when($this->built_at, function () {
-                return [
-                    'datetime' => $this->built_at->toIso8601String(),
-                    'timestamp' => $this->built_at->getTimestamp(),
-                ];
-            }),
-            'numClasses' => $this->gamepack->getCustomProperty('num_classes'),
             'links' => [
                 'self' => route('api.v2.pack', $this),
                 'gamepack' => route('gamepack.dl', $this),
@@ -36,7 +29,6 @@ class Release extends Resource
     public function with($request)
     {
         $media = $this->gamepack;
-        $dt = $this->built_at;
 
         return [
             'meta' => [

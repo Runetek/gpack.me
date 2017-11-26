@@ -42,16 +42,6 @@ class Release extends Model implements HasMedia
             ->where('name', '=', 'runelite');
     }
 
-    public function getBuiltAtAttribute()
-    {
-        $pack = $this->gamepack;
-        if (!$pack || !$pack->hasCustomProperty('built_at')) {
-            return;
-        }
-
-        return Carbon::createFromTimestamp($pack->getCustomProperty('built_at'));
-    }
-
     public function getRouteKeyName()
     {
         return 'revision';

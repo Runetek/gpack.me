@@ -40,12 +40,12 @@ export default {
           callback: 'formatSizeKb'
         },
         {
-          name: 'numClasses',
+          name: 'gamepack.numClasses',
           title: '# Classes',
           titleClass: 'px-4'
         },
         {
-          name: 'builtAt.datetime',
+          name: 'gamepack.builtAt.datetime',
           titleClass: 'px-4',
           title: 'Built At',
           callback: 'formatDate'

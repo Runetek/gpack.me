@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 use Spatie\MediaLibrary\Media;
+use Carbon\Carbon;
 
 class Release extends Model implements HasMedia
 {
@@ -39,6 +40,16 @@ class Release extends Model implements HasMedia
         return $this->morphOne(config('medialibrary.media_model'), 'model')
             ->where('collection_name', '=', 'gamepacks')
             ->where('name', '=', 'runelite');
+    }
+
+    public function getBuiltAtAttribute()
+    {
+        $pack = $this->gamepack;
+        if (!$pack || !$pack->hasCustomProperty('built_at')) {
+            return;
+        }
+
+        return Carbon::createFromTimestamp($pack->getCustomProperty('built_at'));
     }
 
     public function getRouteKeyName()

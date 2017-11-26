@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Spatie\MediaLibrary\Media;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class ExtractJarBuildTime implements ShouldQueue
 {
@@ -44,7 +45,13 @@ class ExtractJarBuildTime implements ShouldQueue
                 return $zip->statIndex($index);
             });
 
+        $numClasses = $zipStats->pluck('name')
+                ->filter(function ($name) {
+                    return Str::endsWith($name, '.class');
+                })->count();
+
         $this->media->setCustomProperty('built_at', $zipStats->max('mtime'));
+        $this->media->setCustomProperty('num_classes', $numClasses);
         $this->media->saveOrFail();
 
         $zip->close();

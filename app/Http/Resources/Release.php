@@ -25,6 +25,7 @@ class Release extends Resource
                     'timestamp' => $this->built_at->getTimestamp(),
                 ];
             }),
+            'numClasses' => $this->gamepack->getCustomProperty('num_classes'),
             'links' => [
                 'self' => route('api.v2.pack', $this),
                 'gamepack' => route('gamepack.dl', $this),

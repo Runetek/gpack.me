@@ -8,12 +8,11 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Spatie\MediaLibrary\Media;
+use Carbon\Carbon;
 
 class ExtractJarBuildTime implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    const JAR_MANIFEST = 'META-INF/MANIFEST.MF';
 
     /** @var Media */
     private $media;
@@ -40,9 +39,12 @@ class ExtractJarBuildTime implements ShouldQueue
             throw new \Exception('Unable to open zip '.$this->media->getPath());
         }
 
-        $manifest_timestamp = array_get($zip->statName(self::JAR_MANIFEST), 'mtime');
+        $zipStats = collect(range(0, $zip->numFiles - 1))
+            ->map(function ($index) use ($zip) {
+                return $zip->statIndex($index);
+            });
 
-        $this->media->setCustomProperty('built_at', (int) $manifest_timestamp);
+        $this->media->setCustomProperty('built_at', $zipStats->max('mtime'));
         $this->media->saveOrFail();
 
         $zip->close();

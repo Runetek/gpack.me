@@ -40,6 +40,11 @@ export default {
           callback: 'formatSizeKb'
         },
         {
+          name: 'numClasses',
+          title: '# Classes',
+          titleClass: 'px-4'
+        },
+        {
           name: 'builtAt.datetime',
           titleClass: 'px-4',
           title: 'Built At',

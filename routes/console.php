@@ -26,7 +26,7 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('import:gamepacks', function () {
-    Release::all()->each(function ($release) {
+    Release::doesntHave('gamepack')->get()->each(function ($release) {
         $remote_file = $release->revision . '/gamepack.jar';
 
         $this->info($remote_file.' '.$release->revision);

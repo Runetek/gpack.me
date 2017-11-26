@@ -52,7 +52,7 @@ Artisan::command('import:gamepacks', function () {
                                 'sha1' => sha1_file(storage_path('app/tmp.jar')),
                             ],
                         ])
-                        ->toMediaCollection('gamepacks', 'artifacts');
+                        ->toMediaCollection('gamepacks');
             });
         } catch (Exception $e) {
             $this->error('Error: '.$e->getMessage());

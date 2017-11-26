@@ -8,6 +8,10 @@ class Release extends Model
 {
     protected $guarded = [];
 
+    public $casts = [
+        'revision' => 'int',
+    ];
+
     function artifacts()
     {
         return $this->hasMany(Artifact::class);

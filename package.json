@@ -15,7 +15,6 @@
         "babel-preset-stage-2": "^6.24.1",
         "cross-env": "^5.1",
         "laravel-mix": "^1.0",
-        "tailwindcss": "^0.2.2",
         "vue": "^2.1.10",
         "vue-typer": "^1.0.6",
         "vuetable-2": "^1.7.0"

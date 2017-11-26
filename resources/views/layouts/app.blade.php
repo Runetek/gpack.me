@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'gpack.me') }}</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600" rel="stylesheet">
 
-    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" media="screen" title="no title" charset="utf-8">
     <style>
         html, body {

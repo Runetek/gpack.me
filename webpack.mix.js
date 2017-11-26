@@ -1,5 +1,4 @@
 let mix = require('laravel-mix')
-let tailwindcss = require('tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -14,7 +13,4 @@ let tailwindcss = require('tailwindcss')
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .extract(['vue', 'axios', 'vue-typer'])
-   .postCss('resources/assets/css/main.css', 'public/css', [
-      tailwindcss('./tailwind.js'),
-    ])
    .version()

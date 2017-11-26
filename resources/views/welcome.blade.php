@@ -18,7 +18,7 @@
                 gpack
             </div>
 
-            <p style="font-size: 32px">
+            <p style="font-size: 32px; padding-top: 30px">
                 <vue-typer
                     :text="['gamepacks', 'deobs', 'automated analysis']"
                     :pre-type-delay="200"

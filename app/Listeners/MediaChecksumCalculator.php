@@ -17,12 +17,18 @@ class MediaChecksumCalculator implements ShouldQueue
     public function handle(MediaHasBeenAdded $event)
     {
         $media = $event->media;
-        if ($media->collection_name === 'gamepacks') {
+        if ($this->shouldHash($media->collection_name)) {
             $media->setCustomProperty('checksums', [
                 'md5' => md5_file($media->getPath()),
                 'sha1' => sha1_file($media->getPath()),
             ]);
             $media->save();
         }
+    }
+
+    private function shouldHash($collection)
+    {
+        return collect(['gamepacks', 'deobs'])
+                ->contains($collection);
     }
 }

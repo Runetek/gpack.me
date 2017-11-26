@@ -20,7 +20,10 @@ class Release extends Resource
             'revision' => (int) $this->revision,
             'gamepack' => JavaArtifact::make($this->gamepack),
             'built_at' => $this->when($this->built_at, function () {
-                return $this->built_at->toIso8601String();
+                return [
+                    'datetime' => $this->built_at->toIso8601String(),
+                    'timestamp' => $this->built_at->getTimestamp(),
+                ];
             }),
             'links' => [
                 'self' => route('api.v2.pack', $this),
@@ -37,11 +40,6 @@ class Release extends Resource
         return [
             'meta' => [
                 'checksums' => $media->getCustomProperty('checksums'),
-                'built_at' => [
-                    'dayOfWeek' => $dt->format('D'),
-                    'timestamp' => $dt->getTimestamp(),
-                    'iso8601' => $dt->toIso8601String(),
-                ],
             ],
         ];
     }

@@ -10,6 +10,7 @@ use App\Artifact;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\ExtractJarBuildTime;
+use App\Jobs\CalculateMediaChecksums;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,12 @@ Artisan::command('import:runelite', function () {
         } catch (Exception $e) {
             $this->error($e.' '.$e->getTraceAsString());
         }
+    });
+});
+
+Artisan::command('spawn:calculate-checksums', function () {
+    Release::has('gamepack')->get()->each(function (Release $release) {
+        dispatch(new CalculateMediaChecksums($release->gamepack));
     });
 });
 

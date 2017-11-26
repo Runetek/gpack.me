@@ -2,15 +2,17 @@
 
 use App\Reports\ReportFetcher;
 use App\Http\Resources\Artifact as ArtifactResource;
+use App\Http\Resources\Release as ReleaseResource;
 use App\Http\Resources\Report as ReportResource;
 use App\Artifact;
 use App\Report;
 use App\Release;
 
 Route::get('packs', function () {
-    return ArtifactResource::collection(
-        Artifact::with('media', 'release')
-            ->latest()
+    return ReleaseResource::collection(
+        Release::has('gamepack')
+            ->with('gamepack')
+            ->orderByDesc('revision')
             ->paginate()
     );
 })->name('api.v2.packs');

@@ -11,7 +11,7 @@ Route::get('packs', function () {
     return ArtifactResource::collection(
         Artifact::with('media', 'release')
             ->latest()
-            ->paginate(25)
+            ->paginate()
     );
 })->name('api.v2.packs');
 

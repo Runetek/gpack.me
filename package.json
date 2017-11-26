@@ -11,6 +11,8 @@
     },
     "devDependencies": {
         "axios": "^0.17",
+        "babel-plugin-transform-runtime": "^6.0.0",
+        "babel-preset-stage-2": "^6.24.1",
         "cross-env": "^5.1",
         "laravel-mix": "^1.0",
         "tailwindcss": "^0.2.2",

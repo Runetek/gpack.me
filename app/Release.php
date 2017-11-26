@@ -25,7 +25,20 @@ class Release extends Model implements HasMedia
     public function gamepack()
     {
         return $this->morphOne(config('medialibrary.media_model'), 'model')
-            ->where('collection_name', '=', 'gamepacks');
+                ->where('collection_name', '=', 'gamepacks');
+    }
+
+    public function deobs()
+    {
+        return $this->morphMany(config('medialibrary.media_model'), 'model')
+                ->where('collection_name', '=', 'deobs');
+    }
+
+    public function runelite()
+    {
+        return $this->morphOne(config('medialibrary.media_model'), 'model')
+            ->where('collection_name', '=', 'gamepacks')
+            ->where('name', '=', 'runelite');
     }
 
     public function getRouteKeyName()

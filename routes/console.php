@@ -41,6 +41,23 @@ Artisan::command('import:gamepacks', function () {
     });
 });
 
+Artisan::command('import:runelite', function () {
+    Release::doesntHave('runelite')->get()->each(function ($release) {
+        try {
+            $remote_file = sprintf('runelite/%d.jar', $release->revision);
+
+            $this->info($remote_file.' '.$release->revision);
+
+            $release->addMediaFromUrl(Storage::disk('deobs')->url($remote_file))
+                    ->usingName('runelite')
+                    ->usingFileName('runelite-'.$release->revision.'.jar')
+                    ->toMediaCollection('deobs');
+        } catch (Exception $e) {
+            $this->error($e.' '.$e->getTraceAsString());
+        }
+    });
+});
+
 Artisan::command('fetch-reports', function (ReportFetcher $reports) {
     $items = $reports->all();
 

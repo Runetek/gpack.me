@@ -65,7 +65,7 @@ export default {
     },
     formatDate (ts) {
       const dt = DateTime.fromISO(ts)
-      return dt.toFormat('fff')
+      return dt.toFormat('DDDD ttt')
     }
   }
 }

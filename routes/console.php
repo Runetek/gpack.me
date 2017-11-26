@@ -31,9 +31,9 @@ Artisan::command('import:gamepacks', function () {
             DB::transaction(function () use ($release) {
                 $remote_file = $release->revision . '/gamepack.jar';
 
-                if (!Storage::cloud()->exists($remote_file)) {
-                    return;
-                }
+                // if (!Storage::cloud()->exists($remote_file)) {
+                //     return;
+                // }
 
                 $artifact = new Artifact([
                     'release_id' => $release->id,

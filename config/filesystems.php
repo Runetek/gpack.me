@@ -71,6 +71,7 @@ return [
             'bucket' => env('MINIO_BUCKET'),
             'endpoint' => env('MINIO_HOST'),
             'use_path_style_endpoint' => true,
+            'disable_asserts' => true,
         ],
 
         'deobs' => [
@@ -79,16 +80,6 @@ return [
             'secret' => env('MINIO_SECRET'),
             'region' => env('MINIO_REGION'),
             'bucket' => 'deobs',
-            'endpoint' => env('MINIO_HOST'),
-            'use_path_style_endpoint' => true,
-        ],
-
-        'artifacts' => [
-            'driver' => 's3',
-            'key' => env('MINIO_KEY'),
-            'secret' => env('MINIO_SECRET'),
-            'region' => env('MINIO_REGION'),
-            'bucket' => 'artifacts',
             'endpoint' => env('MINIO_HOST'),
             'use_path_style_endpoint' => true,
         ],

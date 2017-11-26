@@ -27,13 +27,17 @@ Artisan::command('inspire', function () {
 
 Artisan::command('import:gamepacks', function () {
     Release::doesntHave('gamepack')->get()->each(function ($release) {
-        $remote_file = $release->revision . '/gamepack.jar';
+        try {
+            $remote_file = $release->revision . '/gamepack.jar';
 
-        $this->info($remote_file.' '.$release->revision);
+            $this->info($remote_file.' '.$release->revision);
 
-        $release->addMediaFromUrl(Storage::cloud()->url($remote_file))
-                ->usingFileName($release->revision.'-gamepack.jar')
-                ->toMediaCollection('gamepacks');
+            $release->addMediaFromUrl(Storage::cloud()->url($remote_file))
+                    ->usingFileName($release->revision.'-gamepack.jar')
+                    ->toMediaCollection('gamepacks');
+        } catch (Exception $e) {
+            $this->error($e.' '.$e->getTraceAsString());
+        }
     });
 });
 

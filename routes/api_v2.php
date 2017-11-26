@@ -1,10 +1,8 @@
 <?php
 
 use App\Reports\ReportFetcher;
-use App\Http\Resources\Artifact as ArtifactResource;
 use App\Http\Resources\Release as ReleaseResource;
 use App\Http\Resources\Report as ReportResource;
-use App\Artifact;
 use App\Report;
 use App\Release;
 
@@ -18,8 +16,9 @@ Route::get('packs', function () {
 })->name('api.v2.packs');
 
 Route::get('packs/{revision}', function (Release $revision) {
-    $revision->load('artifacts.media');
-    return ArtifactResource::make($revision->artifacts->first());
+    $revision->load('gamepack');
+    $revision->gamepack ?? abort(404);
+    return ReleaseResource::make($revision);
 })->name('api.v2.pack');
 
 Route::get('reports', function () {

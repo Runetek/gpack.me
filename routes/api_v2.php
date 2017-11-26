@@ -5,6 +5,7 @@ use App\Http\Resources\Artifact as ArtifactResource;
 use App\Http\Resources\Report as ReportResource;
 use App\Artifact;
 use App\Report;
+use App\Release;
 
 Route::get('packs', function () {
     return ArtifactResource::collection(
@@ -13,6 +14,11 @@ Route::get('packs', function () {
             ->paginate(25)
     );
 })->name('api.v2.packs');
+
+Route::get('packs/{revision}', function (Release $revision) {
+    $revision->load('artifacts.media');
+    return ArtifactResource::make($revision->artifacts->first());
+})->name('api.v2.pack');
 
 Route::get('reports', function () {
     return ReportResource::collection(

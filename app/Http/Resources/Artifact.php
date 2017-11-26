@@ -14,14 +14,25 @@ class Artifact extends Resource
      */
     public function toArray($request)
     {
-        $media = $this->media->first();
+        $media = $this->getFirstMedia('gamepacks');
 
         return [
-            'id' => $this->id,
+            'artifact_id' => $this->id,
             'revision' => (int) $this->release->revision,
-            'url' => $media->getFullUrl(),
+            'size' => (int) $media->size,
+            'links' => [
+                'self' => route('api.v2.pack', $this->release),
+                'gamepack' => route('gamepack.dl', $this->release),
+            ],
+        ];
+    }
+
+    public function with($request)
+    {
+        $media = $this->getFirstMedia('gamepacks');
+
+        return [
             'meta' => [
-                'size' => (int) $media->size,
                 'checksums' => $media->getCustomProperty('checksums'),
             ],
         ];

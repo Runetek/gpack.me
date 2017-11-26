@@ -12,6 +12,7 @@ Vue.component('vuetable', VueTable)
 
 Vue.component('vue-typer', VueTyper)
 Vue.component('artifact-table', require('./components/ArtifactTable.vue'))
+Vue.component('download-button', require('./components/DownloadButton.vue'))
 
 const app = new Vue({
     el: '#app'

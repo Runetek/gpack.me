@@ -9,6 +9,7 @@ use App\Release;
 use App\Artifact;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\ExtractJarBuildTime;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,12 @@ Artisan::command('import:runelite', function () {
         } catch (Exception $e) {
             $this->error($e.' '.$e->getTraceAsString());
         }
+    });
+});
+
+Artisan::command('spawn:release-time', function () {
+    Release::has('gamepack')->get()->each(function (Release $release) {
+        dispatch(new ExtractJarBuildTime($release->gamepack));
     });
 });
 

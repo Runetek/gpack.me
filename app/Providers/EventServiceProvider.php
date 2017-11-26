@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+        'Spatie\MediaLibrary\Events\MediaHasBeenAdded' => [
+            'App\Listeners\MediaChecksumCalculator'
+        ],
     ];
 
     /**

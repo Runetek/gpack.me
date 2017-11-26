@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { DateTime } from 'luxon'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 
@@ -33,10 +34,16 @@ export default {
           titleClass: 'px-4'
         },
         {
-          name: 'size',
+          name: 'gamepack.size',
           title: 'Size (kb)',
           titleClass: 'px-4',
           callback: 'formatSizeKb'
+        },
+        {
+          name: 'builtAt.datetime',
+          titleClass: 'px-4',
+          title: 'Built At',
+          callback: 'formatDate'
         },
         {
           name: '__component:download-button',
@@ -55,6 +62,10 @@ export default {
     },
     onChangePage (page) {
       this.$refs.vuetable.changePage(page)
+    },
+    formatDate (ts) {
+      const dt = DateTime.fromISO(ts)
+      return dt.toFormat('fff')
     }
   }
 }

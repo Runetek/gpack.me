@@ -3878,6 +3878,10 @@ lru-cache@^4.0.1, lru-cache@^4.1.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
+luxon@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-0.2.2.tgz#65fb7dae83655ccd8a63eec4084a3275cb2b790a"
+
 macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
